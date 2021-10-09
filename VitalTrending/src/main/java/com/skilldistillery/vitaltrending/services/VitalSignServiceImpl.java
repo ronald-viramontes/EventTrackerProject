@@ -59,6 +59,10 @@ public class VitalSignServiceImpl implements VitalSignService {
 	@Override
 	public VitalSign updateVitalSign(int patientId, int vitalId, VitalSign vitalSign) {
 		VitalSign dbVital = vitalRepo.findByIdAndPatient_Id(vitalId, patientId);
+		
+		if (dbVital == null) {
+			return null;
+		} else {
 		dbVital.setSystolicPressure(vitalSign.getSystolicPressure());
 		dbVital.setDiastolicPressure(vitalSign.getDiastolicPressure());
 		dbVital.setPatient(patientRepo.findById(patientId));
@@ -67,7 +71,9 @@ public class VitalSignServiceImpl implements VitalSignService {
 		dbVital.setTemperature(vitalSign.getTemperature());
 		dbVital.setVitalDateTime(vitalSign.getVitalDateTime());
 
-		return vitalRepo.save(dbVital);
+		vitalRepo.save(dbVital);
+		return dbVital;
+		}
 	}
 
 }

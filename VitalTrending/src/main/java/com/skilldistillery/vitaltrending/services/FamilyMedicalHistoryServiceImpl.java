@@ -54,5 +54,22 @@ public class FamilyMedicalHistoryServiceImpl implements FamilyMedicalHistoryServ
 			return true;
 		}
 	}
+
+	@Override
+	public FamilyMedicalHistory updatePatientFamilyMedicalHistory(int patientId, int fmhxId,
+			FamilyMedicalHistory fmhx) {
+		FamilyMedicalHistory dbFmhx = fmhxRepo.findByIdAndPatient_Id(fmhxId, patientId);
+		
+		if(dbFmhx == null) {
+			
+			return null;
+		} else {
+			dbFmhx.setFamilyRelation(fmhx.getFamilyRelation());
+			dbFmhx.setMedicalCondition(fmhx.getMedicalCondition());
+			
+			fmhxRepo.save(dbFmhx);
+			return dbFmhx;
+		}
+	}
 	
 }

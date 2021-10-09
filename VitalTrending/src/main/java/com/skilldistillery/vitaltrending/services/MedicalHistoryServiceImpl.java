@@ -56,6 +56,26 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService{
 				
 	}
 
+	@Override
+	public MedicalHistory updatePatientMedicalHistory(int patientId, int mhxId, MedicalHistory mhx) {
+		MedicalHistory dbMhx = mhxRepo.findByIdAndPatient_Id(patientId, mhxId);
+		
+		if (dbMhx == null) {
+			return null;
+			
+		} else {
+			dbMhx.setDateVerified(mhx.getDateVerified());
+			dbMhx.setDiagnosis(mhx.getDiagnosis());
+			
+			mhxRepo.save(dbMhx);
+			return dbMhx;
+
+		}
+		
+		
+		
+	}
+
 
 	
 		

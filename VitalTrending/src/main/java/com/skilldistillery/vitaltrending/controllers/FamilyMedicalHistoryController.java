@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,13 +25,13 @@ public class FamilyMedicalHistoryController {
 	private FamilyMedicalHistoryService fmhxSvc;
 	
 	@GetMapping("patients/{patientId}/familymedicalhistory")
-	public List<FamilyMedicalHistory> getAllFamilyMedicalHistory(@PathVariable Integer patientId){
+	public List<FamilyMedicalHistory> getAllPatientFamilyMedicalHistory(@PathVariable Integer patientId){
 		return fmhxSvc.findFamilyMedicalHistoryByPatientId(patientId);
 	}
 	
 	
 	@PostMapping("patients/{patientId}/familymedicalhistory")
-	public FamilyMedicalHistory addNewFamilyMedicalHistory(@PathVariable Integer patientId, 
+	public FamilyMedicalHistory addPatientFamilyMedicalHistory(@PathVariable Integer patientId, 
 														   @RequestBody FamilyMedicalHistory fmhx,
 														   HttpServletResponse res) {
 		fmhx = fmhxSvc.createNewFamilyMedicalHistory(patientId, fmhx);
@@ -43,8 +44,23 @@ public class FamilyMedicalHistoryController {
 		
 	}
 	
+	@PutMapping("patients/{patientId}/familymedicalhistory/{fmhxId}")
+	public FamilyMedicalHistory updatePatientFamilyMedicalHistory(@PathVariable Integer patientId, 
+									   @PathVariable Integer fmhxId,
+									   @RequestBody FamilyMedicalHistory fmhx, 
+									   HttpServletResponse res) {
+		
+		if (fmhxSvc.updatePatientFamilyMedicalHistory(patientId, fmhxId, fmhx) != null) {
+			res.setStatus(204);
+			return fmhx;
+		} else {
+			res.setStatus(404);
+			return fmhx = null;
+		} 
+	}
+	
 	@DeleteMapping("patients/{patientId}/familymedicalhistory/{fmhxId}")
-	public void deletePatient(@PathVariable Integer patientId, 
+	public void deletePatientFamilyMedicalHistory(@PathVariable Integer patientId, 
 							  @PathVariable Integer fmhxId,
 							  HttpServletResponse res) {
 		if (fmhxSvc.deleteFamilyMedicalHistory(patientId, fmhxId)) {

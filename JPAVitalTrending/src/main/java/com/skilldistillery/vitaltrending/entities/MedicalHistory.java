@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="medical_history")
 public class MedicalHistory {
@@ -31,6 +33,7 @@ public class MedicalHistory {
 	
 	@ManyToOne
 	@JoinColumn(name="patient_id")
+	@JsonIgnore
 	Patient patient;
 
 	public int getId() {
@@ -84,9 +87,10 @@ public class MedicalHistory {
 
 	@Override
 	public String toString() {
-		return "MedicalHistory [id=" + id + ", diagnosis=" + diagnosis + ", dateVerified=" + dateVerified + ", patient="
-				+ patient + "]";
+		return "MedicalHistory [id=" + id + ", diagnosis=" + diagnosis + ", dateVerified=" + dateVerified + "]";
 	}
+
+	
 	
 	
 	

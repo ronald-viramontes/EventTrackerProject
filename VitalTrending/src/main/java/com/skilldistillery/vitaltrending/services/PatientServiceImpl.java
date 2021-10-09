@@ -47,13 +47,18 @@ public class PatientServiceImpl implements PatientService{
 	@Override
 	public Patient updatePatient(int patientId, Patient patient) {
 		Patient dbPatient = patientRepo.findById(patientId);
+		if (dbPatient == null) {
+			return null;
+		} else {
 		dbPatient.setDateOfBirth(patient.getDateOfBirth());
 		dbPatient.setFirstName(patient.getFirstName());;
 		dbPatient.setImageIdUrl(patient.getImageIdUrl());
 		dbPatient.setLastName(patient.getLastName());
-		
-		return patientRepo.save(dbPatient);
+		patientRepo.save(dbPatient);
+		return dbPatient;
+		}	
 	}
+		
 	
 	
 

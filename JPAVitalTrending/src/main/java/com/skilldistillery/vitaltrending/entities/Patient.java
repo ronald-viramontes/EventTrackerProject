@@ -11,8 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 public class Patient {
 
@@ -37,15 +35,15 @@ public class Patient {
 	private String imageIdUrl;
 	
 	@OneToMany(mappedBy="patient")
-	@JsonIgnore
+//	@JsonIgnore
 	List<VitalSign> vitalSigns;
 	
 	@OneToMany(mappedBy="patient")
-	@JsonIgnore
+//	@JsonIgnore
 	List<FamilyMedicalHistory> familyMedicalHistory;
 	
 	@OneToMany(mappedBy="patient")
-	@JsonIgnore
+//	@JsonIgnore
 	List<MedicalHistory> medicalHistory;
 
 	public int getId() {

@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="vital_sign")
 public class VitalSign {
@@ -43,6 +45,7 @@ public class VitalSign {
 
 	@ManyToOne
 	@JoinColumn(name="patient_id")
+	@JsonIgnore
 	Patient patient;
 
 	public int getId() {
@@ -130,8 +133,10 @@ public class VitalSign {
 	public String toString() {
 		return "VitalSign [id=" + id + ", vitalDateTime=" + vitalDateTime + ", systolicPressure=" + systolicPressure
 				+ ", diastolicPressure=" + diastolicPressure + ", pulseRate=" + pulseRate + ", temperature="
-				+ temperature + ", respiratoryRate=" + respiratoryRate + ", patient=" + patient + "]";
+				+ temperature + ", respiratoryRate=" + respiratoryRate + "]";
 	}
+
+	
 
 
 

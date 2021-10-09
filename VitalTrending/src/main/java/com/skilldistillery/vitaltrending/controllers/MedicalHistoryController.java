@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,14 +25,14 @@ public class MedicalHistoryController {
 	private MedicalHistoryService mhxSvc;
 	
 	@GetMapping("patients/{patientId}/medicalhistory")
-	public List<MedicalHistory> getAllMedicalHistory(@PathVariable Integer patientId){
+	public List<MedicalHistory> getAllPatientMedicalHistory(@PathVariable Integer patientId){
 		return mhxSvc.findAllPatientMedicalHistory(patientId);
 		
 	}
 	
 	
 	@PostMapping("patients/{patientId}/medicalhistory")
-	public MedicalHistory addNewMedicalHistory(@PathVariable Integer patientId, 
+	public MedicalHistory addPatientMedicalHistory(@PathVariable Integer patientId, 
 														   @RequestBody MedicalHistory medicalHistory,
 														   HttpServletResponse res) {
 		medicalHistory = mhxSvc.createNewMedicalHistory(patientId, medicalHistory);
@@ -44,8 +45,23 @@ public class MedicalHistoryController {
 		
 	}
 	
+	@PutMapping("patients/{patientId}/medicalhistory/{mhxId}")
+	public MedicalHistory updatePatientMedicalHistory(@PathVariable Integer patientId, 
+									   @PathVariable Integer mhxId,
+									   @RequestBody MedicalHistory mhx, 
+									   HttpServletResponse res) {
+		
+		if (mhxSvc.updatePatientMedicalHistory(patientId, mhxId, mhx) != null) {
+			res.setStatus(204);
+			return mhx;
+		} else {
+			res.setStatus(404);
+			return mhx = null;
+		} 
+	}
+	
 	@DeleteMapping("patients/{patientId}/medicalhistory/{mhxId}")
-	public void deletePatient(@PathVariable Integer patientId, 
+	public void deletePatientMedicalHistory(@PathVariable Integer patientId, 
 							  @PathVariable Integer mhxId,
 							  HttpServletResponse res) {
 		if (mhxSvc.deleteMedicalHistory(patientId, mhxId)) {

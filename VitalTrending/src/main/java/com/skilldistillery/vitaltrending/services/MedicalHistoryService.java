@@ -10,5 +10,5 @@ public interface MedicalHistoryService {
 	MedicalHistory createNewMedicalHistory(int patientId, MedicalHistory mhx);
 	MedicalHistory findMedicalHistoryById(int mhxId);
 	Boolean deleteMedicalHistory(int patientId, int mhxId);
-	
+	MedicalHistory updatePatientMedicalHistory(int patientId, int mhxId, MedicalHistory mhx);
 }
