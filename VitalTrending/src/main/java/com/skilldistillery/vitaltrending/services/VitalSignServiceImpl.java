@@ -25,7 +25,7 @@ public class VitalSignServiceImpl implements VitalSignService{
 	}
 
 	@Override
-	public VitalSign createNewMedicalHistory(int patientId, VitalSign vitalSign) {
+	public VitalSign createNewVitalSign(int patientId, VitalSign vitalSign) {
 		Patient patient = patientRepo.findById(patientId);
 		if(patient == null) {
 			return null;

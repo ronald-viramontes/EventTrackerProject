@@ -1,9 +1,19 @@
 package com.skilldistillery.vitaltrending.controllers;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.vitaltrending.entities.MedicalHistory;
 import com.skilldistillery.vitaltrending.services.MedicalHistoryService;
 
 @RestController
@@ -13,40 +23,37 @@ public class MedicalHistoryController {
 	@Autowired
 	private MedicalHistoryService mhxSvc;
 	
-//	@GetMapping("patients")
-//	public List<Patient> getAllPatients(){
-//		return patSvc.findAllPatients();
-//	}
-//	
-//	@GetMapping("patients/{patientId}")
-//	public Patient getPatientById(@PathVariable Integer patientId) {
-//		return patSvc.findPatientById(patientId);
-//		
-//	}
-//	
-//	@PostMapping("patients")
-//	public Patient addNewPatient(@RequestBody Patient patient,
-//								HttpServletResponse res) {
-//		
-//		patient = patSvc.createNewPatient(patient);
-//		if(patient == null) {
-//			res.setStatus(404);
-//			return null;
-//		}
-//		return patient;
-//		
-//	}
-//	
-//	@DeleteMapping("patients/{patientId}")
-//	public void deletePatient(@PathVariable Integer patientId, 
-//							  HttpServletResponse res) {
-//		if (patSvc.deletePatient(patientId)) {
-//			res.setStatus(204);
-//		} else {
-//			res.setStatus(404);
-//		}
-//	}
+	@GetMapping("patients/{patientId}/medicalhistory")
+	public List<MedicalHistory> getAllMedicalHistory(@PathVariable Integer patientId){
+		return mhxSvc.findAllPatientMedicalHistory(patientId);
+		
+	}
 	
+	
+	@PostMapping("patients/{patientId}/medicalhistory")
+	public MedicalHistory addNewMedicalHistory(@PathVariable Integer patientId, 
+														   @RequestBody MedicalHistory medicalHistory,
+														   HttpServletResponse res) {
+		medicalHistory = mhxSvc.createNewMedicalHistory(patientId, medicalHistory);
+		
+		if(medicalHistory == null) {
+			res.setStatus(404);
+			return null;
+		}
+		return medicalHistory;
+		
+	}
+	
+	@DeleteMapping("patients/{patientId}/medicalhistory/{mhxId}")
+	public void deletePatient(@PathVariable Integer patientId, 
+							  @PathVariable Integer mhxId,
+							  HttpServletResponse res) {
+		if (mhxSvc.deleteMedicalHistory(patientId, mhxId)) {
+			res.setStatus(204);
+		} else {
+			res.setStatus(404);
+		}
+	}
 	
 	
 	
