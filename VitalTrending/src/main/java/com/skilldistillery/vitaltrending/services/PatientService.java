@@ -10,5 +10,6 @@ public interface PatientService {
 	Patient findPatientById(int patientId);
 	Patient createNewPatient(Patient patient);
 	Boolean deletePatient(int patientId);
+	Patient updatePatient(int patientId, Patient patient);
 	
 }

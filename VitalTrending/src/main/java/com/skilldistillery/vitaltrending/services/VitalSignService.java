@@ -10,5 +10,6 @@ public interface VitalSignService {
 	VitalSign createNewVitalSign(int patientId, VitalSign vitalId);
 	VitalSign findVitalSignById(int vitalId);
 	Boolean deleteVitalSign(int patientId, int vitalId);
+	VitalSign updateVitalSign(int patientId, int vitalId, VitalSign vitalSign);
 	
 }

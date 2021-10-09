@@ -22,13 +22,6 @@ public class PatientServiceImpl implements PatientService{
 
 	@Override
 	public Patient findPatientById(int patientId) {
-//		Optional<Patient> patientOp = patientRepo.findById(patientId);
-//		if(! patientOp.isPresent()) {
-//			return null;
-//		} else {
-//			Patient p = patientOp.get();
-//			
-//		} return p;
 		
 		return patientRepo.findById(patientId);
 	
@@ -49,6 +42,17 @@ public class PatientServiceImpl implements PatientService{
 		}	else {
 			return false;
 		}
+	}
+
+	@Override
+	public Patient updatePatient(int patientId, Patient patient) {
+		Patient dbPatient = patientRepo.findById(patientId);
+		dbPatient.setDateOfBirth(patient.getDateOfBirth());
+		dbPatient.setFirstName(patient.getFirstName());;
+		dbPatient.setImageIdUrl(patient.getImageIdUrl());
+		dbPatient.setLastName(patient.getLastName());
+		
+		return patientRepo.save(dbPatient);
 	}
 	
 	
