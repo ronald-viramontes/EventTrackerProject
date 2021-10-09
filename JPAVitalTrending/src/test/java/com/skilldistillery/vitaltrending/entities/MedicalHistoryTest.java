@@ -2,7 +2,8 @@ package com.skilldistillery.vitaltrending.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,10 +16,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class PatientTest {
+class MedicalHistoryTest {
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Patient patient;
+	private MedicalHistory mhx;
 	
 	
 	@BeforeAll
@@ -34,28 +35,22 @@ class PatientTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		patient = em.find(Patient.class, 1);
+		mhx = em.find(MedicalHistory.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		patient = null;
+		mhx = null;
 	}
 
 	@Test
 	@DisplayName("test entity mapping of patient")
 	void test() {
-		assertNotNull(patient);
-		assertEquals("Tom", patient.getFirstName());
-		assertEquals("Sawyer", patient.getLastName());
-		assertEquals("https://images.pexels.com/photos/3777943/pexels-photo-3777943.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500", 
-				patient.getImageIdUrl());
-		assertTrue(patient.getFamilyMedicalHistory().size() > 0);
-		assertTrue(patient.getMedicalHistory().size() > 0);
-		assertTrue(patient.getVitalSigns().size() > 0);
-		
-		
+		LocalDate date = LocalDate.parse("2021-09-25");
+		assertNotNull(mhx);
+		assertEquals("Cystic Fibrosis", mhx.getDiagnosis() );
+		assertEquals(date, mhx.getDateVerified() );
 		
 	}
 

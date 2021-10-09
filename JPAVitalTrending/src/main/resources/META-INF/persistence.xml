@@ -3,9 +3,11 @@
 	<persistence-unit name="JPAVitalTrending">
 	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		
+		<class>com.skilldistillery.vitaltrending.entities.FamilyMedicalHistory</class>
+		<class>com.skilldistillery.vitaltrending.entities.MedicalHistory</class>
 		<class>com.skilldistillery.vitaltrending.entities.Patient</class>
-		<!-- <class>com.skilldistillery.vitaltrending.entities.Vitals</class>
-		 -->	
+		<class>com.skilldistillery.vitaltrending.entities.VitalSign</class>
+			
 	<properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/vitaldb?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=US/Eastern" />
       <property name="javax.persistence.jdbc.user" value="vital"/>

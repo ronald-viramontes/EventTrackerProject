@@ -2,7 +2,6 @@ package com.skilldistillery.vitaltrending.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,10 +14,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class PatientTest {
+class VitalSignTest {
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Patient patient;
+	private VitalSign vs;
 	
 	
 	@BeforeAll
@@ -34,28 +33,24 @@ class PatientTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		patient = em.find(Patient.class, 1);
+		vs = em.find(VitalSign.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		patient = null;
+		vs = null;
 	}
 
 	@Test
 	@DisplayName("test entity mapping of patient")
 	void test() {
-		assertNotNull(patient);
-		assertEquals("Tom", patient.getFirstName());
-		assertEquals("Sawyer", patient.getLastName());
-		assertEquals("https://images.pexels.com/photos/3777943/pexels-photo-3777943.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500", 
-				patient.getImageIdUrl());
-		assertTrue(patient.getFamilyMedicalHistory().size() > 0);
-		assertTrue(patient.getMedicalHistory().size() > 0);
-		assertTrue(patient.getVitalSigns().size() > 0);
-		
-		
+		assertNotNull(vs);
+		assertEquals(125, vs.getSystolicPressure());
+		assertEquals(68, vs.getDiastolicPressure());
+		assertEquals(55, vs.getPulseRate());
+		assertEquals(98.2, vs.getTemperature());
+		assertEquals(16, vs.getRespiratoryRate());
 		
 	}
 

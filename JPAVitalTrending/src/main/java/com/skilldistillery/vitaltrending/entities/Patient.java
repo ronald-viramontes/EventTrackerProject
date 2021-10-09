@@ -1,5 +1,7 @@
 package com.skilldistillery.vitaltrending.entities;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -7,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Patient {
@@ -24,6 +29,24 @@ public class Patient {
 	
 	@Column(name="last_name")
 	private String lastName;
+	
+	@Column(name="date_of_birth")
+	private LocalDate dateOfBirth;
+	
+	@Column(name="image_id_url")
+	private String imageIdUrl;
+	
+	@OneToMany(mappedBy="patient")
+	@JsonIgnore
+	List<VitalSign> vitalSigns;
+	
+	@OneToMany(mappedBy="patient")
+	@JsonIgnore
+	List<FamilyMedicalHistory> familyMedicalHistory;
+	
+	@OneToMany(mappedBy="patient")
+	@JsonIgnore
+	List<MedicalHistory> medicalHistory;
 
 	public int getId() {
 		return id;
@@ -49,6 +72,47 @@ public class Patient {
 		this.lastName = lastName;
 	}
 
+	public LocalDate getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public String getImageIdUrl() {
+		return imageIdUrl;
+	}
+
+	public void setImageIdUrl(String imageIdUrl) {
+		this.imageIdUrl = imageIdUrl;
+	}
+
+		
+	public List<VitalSign> getVitalSigns() {
+		return vitalSigns;
+	}
+
+	public void setVitalSigns(List<VitalSign> vitalSigns) {
+		this.vitalSigns = vitalSigns;
+	}
+
+	public List<FamilyMedicalHistory> getFamilyMedicalHistory() {
+		return familyMedicalHistory;
+	}
+
+	public void setFamilyMedicalHistory(List<FamilyMedicalHistory> familyMedicalHistory) {
+		this.familyMedicalHistory = familyMedicalHistory;
+	}
+
+	public List<MedicalHistory> getMedicalHistory() {
+		return medicalHistory;
+	}
+
+	public void setMedicalHistory(List<MedicalHistory> medicalHistory) {
+		this.medicalHistory = medicalHistory;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -68,10 +132,9 @@ public class Patient {
 
 	@Override
 	public String toString() {
-		return "Patient [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + "]";
+		return "Patient [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth="
+				+ dateOfBirth + ", imageIdUrl=" + imageIdUrl + "]";
 	}
-
-	
 	
 	
 	
