@@ -15,7 +15,7 @@
   void          | DELETE api/patients/{patientId}     | Removes patient
 
 ## Application Mapping Patient Family Medical History
-    Return Type              |                               Route                           |  Functionality
+  Return Type                |                               Route                           |  Functionality
   ---------------------------|---------------------------------------------------------------|----------------------------------------
   List<FamilyMedicalHistory> | GET api/patients/{patientId}                                  | Gets patient family medical history
   FamilyMedicalHistory       | POST api/patients/{patientId}/familymedicalhistory            | Creates patient family medical history
@@ -24,7 +24,7 @@
 
 ## Application Mapping Patient Medical History
 
-    Return Type         |                         Route                         |  Functionality
+  Return Type           |                         Route                         |  Functionality
   ----------------------|-------------------------------------------------------|---------------------------------
   List<MedicalHistory>  | GET api/patients/{patientId}                          | Gets patient medical history
   MedicalHistory        | POST api/patients/{patientId}/medicalhistory          | Creates patient medical history
@@ -33,7 +33,7 @@
 
 ## Application Mapping Patient Vital Signs
 
-    Return Type   |                       Route                         |  Functionality
+  Return Type     |                       Route                         |  Functionality
   ----------------|-----------------------------------------------------|----------------------------
   List<VitalSign> | GET api/patients/{patientId}/vitalsigns             | Gets patient vital signs
   VitalSign       | POST api/patients/{patientId}/vitalsigns            | Creates patient vital sign
