@@ -15,30 +15,30 @@
   void          | DELETE api/patients/{patientId}     | Removes patient
 
 ## Application Mapping Patient Family Medical History
-    Return Type             |                               Route                          |  Functionality
-  --------------------------|--------------------------------------------------------------|----------------------------------------
-  List<FamilyMedicalHistory>| GET api/patients/{patientId}                                 | Gets patient family medical history
-  FamilyMedicalHistory      | POST api/patients/{patientId}/familymedicalhistory           | Creates patient family medical history
-  FamilyMedicalHistory      | PUT api/patients/{patientId}/familymedicalhistory/{fmxhId}   | Updates patient family medical history
-  void                      | DELETE api/patients/{patientId}/familymedicalhistory/{fmhxId}| Removes patient family medical history
+    Return Type              |                               Route                           |  Functionality
+  ---------------------------|---------------------------------------------------------------|----------------------------------------
+  List<FamilyMedicalHistory> | GET api/patients/{patientId}                                  | Gets patient family medical history
+  FamilyMedicalHistory       | POST api/patients/{patientId}/familymedicalhistory            | Creates patient family medical history
+  FamilyMedicalHistory       | PUT api/patients/{patientId}/familymedicalhistory/{fmxhId}    | Updates patient family medical history
+  void                       | DELETE api/patients/{patientId}/familymedicalhistory/{fmhxId} | Removes patient family medical history
 
 ## Application Mapping Patient Medical History
 
-    Return Type             |                         Route                         |  Functionality
-  --------------------------|-------------------------------------------------------|---------------------------------
-  List<MedicalHistory>      | GET api/patients/{patientId}                          | Gets patient medical history
-  MedicalHistory            | POST api/patients/{patientId}/medicalhistory          | Creates patient medical history
-  MedicalHistory            | PUT api/patients/{patientId}/medicalhistory/{mhxId}   | Updates patient medical history
-  void                      | DELETE api/patients/{patientId}/medicalhistory/{mhxId}| Removes patient medical history
+    Return Type         |                         Route                         |  Functionality
+  ----------------------|-------------------------------------------------------|---------------------------------
+  List<MedicalHistory>  | GET api/patients/{patientId}                          | Gets patient medical history
+  MedicalHistory        | POST api/patients/{patientId}/medicalhistory          | Creates patient medical history
+  MedicalHistory        | PUT api/patients/{patientId}/medicalhistory/{mhxId}   | Updates patient medical history
+  void                  | DELETE api/patients/{patientId}/medicalhistory/{mhxId}| Removes patient medical history
 
 ## Application Mapping Patient Vital Signs
 
-    Return Type             |                       Route                         |  Functionality
-  --------------------------|-----------------------------------------------------|----------------------------
-  List<VitalSign>           | GET api/patients/{patientId}/vitalsigns             | Gets patient vital signs
-  VitalSign                 | POST api/patients/{patientId}/vitalsigns            | Creates patient vital sign
-  VitalSign                 | PUT api/patients/{patientId}/vitalsigns/{vitalId}   | Updates patient vitals
-  void                      | DELETE api/patients/{patientId}/vitalsigns/{vitalId}| Removes patient vitals
+    Return Type   |                       Route                         |  Functionality
+  ----------------|-----------------------------------------------------|----------------------------
+  List<VitalSign> | GET api/patients/{patientId}/vitalsigns             | Gets patient vital signs
+  VitalSign       | POST api/patients/{patientId}/vitalsigns            | Creates patient vital sign
+  VitalSign       | PUT api/patients/{patientId}/vitalsigns/{vitalId}   | Updates patient vitals
+  void            | DELETE api/patients/{patientId}/vitalsigns/{vitalId}| Removes patient vitals
 
 
 ## Technologies Used
