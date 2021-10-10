@@ -52,8 +52,8 @@
     * MAMP, version 6.5
 
 ## Lessons Learned
-    The development of VitalTrending was a passion project. I spent over 20 years as a military paramedic and Air Force Independent Duty Medical Technician. Much of my work was conducted at remote locations with limited medical support. This program would have been extremely useful to me for coordination of care and remote patient monitoring in austere or remote locations around the globe.
-    Through the development process, I solidified foundational Object Oriented Programing pearls, which ensured proper entity mapping, and operational CRUD functions.  This was verified using JUnit testing for entity mapping and relational entity mapping, along with Postman for GET, POST, PUT, and DELETE functions.]
+  The development of VitalTrending was a passion project. I spent over 20 years as a military paramedic and Air Force Independent Duty Medical Technician. 
+Much of my work was conducted at remote locations with limited medical support. This program would have been extremely useful to me for coordination of care and remote patient monitoring in austere or remote locations around the globe. Through the development process, I solidified foundational Object Oriented Programing pearls, which ensured proper entity mapping, and operational CRUD functions. This was verified using JUnit testing for entity mapping and relational entity mapping, along with Postman for GET, POST, PUT, and DELETE functions.
 
 ## Future Development
     * Frontend Functionality
