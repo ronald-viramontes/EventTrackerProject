@@ -1,0 +1,54 @@
+body {
+	background-color: #DCDCDC;
+	text-align: center;
+	
+}
+
+table, th, td {
+	font: 17px Calibri;
+	border: 2px solid black;
+	width: auto;
+	table-layout: auto;
+	padding: 2px 3px;
+	text-align: center;
+	 
+ 	margin-left: auto;
+	margin-right: auto; 
+}
+
+th {
+   font-weight:bold;
+   }
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+edit {
+	font-size: 10px;
+	border-radius: 12px;
+	background-color: yellow;
+	padding: 10px 24px;
+	color: black;
+}
+
+save {
+	font-size: 10px;
+	border-radius: 12px;
+	background-color: green;
+	padding: 10px 24px;
+	color: black;
+}
+
+delete {
+	font-size: 10px;
+	border-radius: 12px;
+	background-color: red;
+	padding: 10px 24px;
+	color: black;
+}
+
+
+
+
+

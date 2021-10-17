@@ -30,9 +30,14 @@ public class PatientController {
 	}
 
 	@GetMapping("patients/{patientId}")
-	public Patient getPatientById(@PathVariable Integer patientId) {
-		return patSvc.findPatientById(patientId);
-
+	public Patient getPatientById(@PathVariable Integer patientId,
+									HttpServletResponse res) {
+		Patient patient = patSvc.findPatientById(patientId);
+		if(patient == null) {
+			res.setStatus(404);
+			return null;
+		}
+		return patient;
 	}
 
 	@PostMapping("patients")
