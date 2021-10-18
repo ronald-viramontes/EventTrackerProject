@@ -15,11 +15,14 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-dark bg-dark">
-    <button class="navbar-toggler" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    	    	<b style="color: white">Menu</b>
-    	
+	<nav class="navbar navbar-dark bg-primary">
+    <button class="navbar-toggler bg-secondary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    	    	 <b style="color: white">Menu</b>
     </button>
+    
+    <span style="text-align: justify; font-size: 30px; text-shadow: 2px 2px #021691; color: white" class="navbar-text">
+    	Vital Trending
+    </span>
     	<div class="dropdown-menu">
     		<a class="dropdown-item" href="index.html">Home</a>
     		<a class="dropdown-item" href="editPatient.html">Edit Patient Data</a>
@@ -35,11 +38,11 @@
 	
 	<form name="patientForm">
 		<input type="number" name="patientId" placeholder="Patient ID">
-		<button class="btn btn-dark btn-sm" name="lookup">Get Patient</button>
+		<button class="btn bg-secondary btn-sm" name="lookup">Get Patient</button>
 	</form>
 	<br>
 	<form name="allPatients">
-	<button class="btn btn-dark btn-sm" name="viewAllPatients">View All Patients</button>
+	<button class="btn bg-secondary btn-sm" name="viewAllPatients">View All Patients</button>
 	</form>
 	<br>
 	<hr>
@@ -63,7 +66,7 @@
 		<br>
 		<input type="text" name="imageIdUrl" placeholder="Image ID URL"><br>	
 		<br>
-		<button class="btn btn-dark btn-sm" name="updatePatient">Update Patient</button>
+		<button class="btn bg-secondary btn-sm" name="updatePatient">Update Patient</button>
 	</form>	
 	<hr>
 	<br>
@@ -76,15 +79,16 @@
 		<br>
 		<input type="text" name="imageIdUrl" placeholder="Image ID URL"><br>	
 		<br>
-		<button class="btn btn-dark btn-sm" name="addPatient">Add Patient</button>
+		<button class="btn bg-secondary btn-sm" name="addPatient">Add Patient</button>
 	</form>	
 	<hr>
 	<br>
 	<div id="output">
+		<div id="viewAllPatientData"></div>
 		<div id="patientData"></div>
+		<div id="vitalSignData"></div>
 		<div id="pastMedicalHistoryData"></div>
 		<div id="familyMedicalHistoryData"></div>
-		<div id="vitalSignData"></div>
 	</div>
 	<hr>
 	

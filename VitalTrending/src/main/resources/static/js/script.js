@@ -117,7 +117,7 @@ function getAllPatients() {
 
 function displayAllPatients(patients) {
 		
-	let patientDataDiv = document.getElementById('patientData');
+	let patientDataDiv = document.getElementById('viewAllPatientData');
 
 	let table = document.createElement('table');
 	table.class = 'table';
@@ -135,7 +135,6 @@ function displayAllPatients(patients) {
 	t = document.createElement('th');
 	t.textContent = "First Name";
 	head.appendChild(t);
-	
 	
 	t = document.createElement('th');
 	t.textContent = "Last Name";
@@ -197,6 +196,9 @@ function displayAllPatients(patients) {
 		btn = document.createElement('button');
 		btn.type="button";
 		btn.textContent = "Delete";
+		btn.addEventListener('click', function(e){
+			deletePatient(patient.id);	
+		});
 		
 		
 		td = document.createElement('td');
@@ -216,9 +218,9 @@ function displayAllPatients(patients) {
 			
 	}
 
-	// getPastMedicalHistory(patient.id);
-	// getFamilyMedicalHistory(patient.id);
-	// getPatientVitalSigns(patient.id);
+	let hr = document.createElement('hr');
+	patientDataDiv.appendChild(hr);
+	
 
 }
 
@@ -289,7 +291,8 @@ function displayPatient(patient) {
 	let hr = document.createElement('hr');
 	patientDataDiv.appendChild(hr);
 
-	// getPastMedicalHistory(patient.id);
+	getPatientVitals(patient.id);
+	getPatientMedicalHistory(patient.id);
 	// getFamilyMedicalHistory(patient.id);
 	// getPatientVitalSigns(patient.id);
 
@@ -351,42 +354,233 @@ function deletePatient(patientId) {
 	xhr.send();
 }
 
-function editRow(no)
-{
- document.getElementById("editButton"+no).style.display="none";
- document.getElementById("saveButton"+no).style.display="block";
-	
- let firstName = document.getElementById("firstNameRow"+no);
- let lastName = document.getElementById("lastNameRow"+no);
- let dateOfBirth = document.getElementById("dateOfBirthRow"+no);
- 
-
- let firstNameData = firstName.innerHTML;
- let lastNameData = lastName.innerHTML;
- let dateOfBirthData = dateOfBirth.innerHTML;
-
-	
- firstName.innerHTML="<input type='text' id='firstNameText"+no+"' value='"+firstNameData+"'>";
- lastName.innerHTML="<input type='text' id='lastNameText"+no+"' value='"+lastNameData+"'>";
- dateOfBirth.innerHTML="<input type='date' id='dateOfBirthDate"+no+"' value='"+dateOfBirthData+"'>";
-
+function getPatientVitals(patientId){
+	let xhr = new XMLHttpRequest();
+	console.log('xhr.readyState = ' + xhr.readyState);
+	xhr.open('GET', `api/patients/${patientId}/vitalsigns/`);
+	console.log('xhr.readyState = ' + xhr.readyState);
+	xhr.onreadystatechange = function() {
+		console.log('xhr.readyState = ' + xhr.readyState);
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200) {
+				let vitalSigns = JSON.parse(xhr.responseText);
+				
+				displayPatientVitals(vitalSigns);
+			}
+			else if (xhr.status === 404){
+				console.error("patient vital signs not found");
+				alert("Patient vital signs not Found!")
+			}
+		}
+	}
+	console.log('Before send: xhr.readyState = ' + xhr.readyState);
+	xhr.send();
+	console.log('After send: xhr.readyState = ' + xhr.readyState);
 }
 
-function saveRow(no)
-{
- let firstNameVal=document.getElementById("firstNameText"+no).value;
- let lastNameVal=document.getElementById("lastNameText"+no).value;
- let dateOfBirthVal=document.getElementById("dateOfBirthDate"+no).value;
+function displayPatientVitals(vitalSigns) {
+		
+	let vitalSignDataDiv = document.getElementById('vitalSignData');
 
- document.getElementById("firstNameRow"+no).innerHTML=firstNameVal;
- document.getElementById("lastNameRow"+no).innerHTML=lastNameVal;
- document.getElementById("dateOfBirthRow"+no).innerHTML=dateOfBirthVal;
+	let table = document.createElement('table');
+	table.class = 'table';
+	
+	vitalSignDataDiv.appendChild(table);
+	
+	let head = document.createElement('thead');
+	table.appendChild(head);
+	
+	let t = document.createElement('th');
+	
+	t.textContent = "Vital Sign ID";
+	head.appendChild(t);
+		
+	t = document.createElement('th');
+	t.textContent = "Date & Time";
+	head.appendChild(t);
+	
+	t = document.createElement('th');
+	t.textContent = "Systolic Pressure";
+	head.appendChild(t);
+	
+	t = document.createElement('th');
+	t.textContent = "Diastolic Pressure";
+	head.appendChild(t);
+	
+	t = document.createElement('th');
+	t.textContent = "Pulse Rate";
+	head.appendChild(t);
+	
+	t = document.createElement('th');
+	t.textContent = "Temperature";
+	head.appendChild(t);
+	
+	t = document.createElement('th');
+	t.textContent = "Respirations";
+	head.appendChild(t);
+	
+	let tbody = document.createElement('tbody');
+	table.appendChild(tbody);
+	var i = 0;
+	var pulseInitial = 0;
+	var pulseChange = 0;
+	var tempInitial = 0;
+	var tempChange = 0;
+	var respInitial = 0;
+	var respChange = 0;
+	var systolicInitial = 0;
+	var systolicChange = 0;
+	var diastolicInitial = 0;
+	var diastolicChange = 0;
+	for(let vitalSign of vitalSigns){
+		
+		let tr = document.createElement('tr');
+		let td = document.createElement('td');
 
- document.getElementById("editButton"+no).style.display="block";
- document.getElementById("saveButton"+no).style.display="none";
+		
+		td.textContent = vitalSign.id;
+		tr.appendChild(td);
+	
+		td = document.createElement('td');
+		td.textContent = vitalSign.vitalDateTime;
+		tr.appendChild(td);
+
+		td = document.createElement('td');
+		td.textContent = vitalSign.systolicPressure;
+		tr.appendChild(td);
+
+		td = document.createElement('td');
+		td.textContent = vitalSign.diastolicPressure;
+		tr.appendChild(td);
+
+		td = document.createElement('td');
+		td.textContent = vitalSign.pulseRate;
+		tr.appendChild(td);
+
+		td = document.createElement('td');
+		td.textContent = vitalSign.temperature;
+		tr.appendChild(td);
+
+		td = document.createElement('td');
+		td.textContent = vitalSign.respiratoryRate;
+		tr.appendChild(td);
+						
+		tbody.appendChild(tr);
+		
+		if(i == 0){
+		pulseInitial = vitalSign.pulseRate;
+		tempInitial = vitalSign.temperature;
+		systolicInitial = vitalSign.systolicPressure;
+		diastolicInitial = vitalSign.diastolicPressure;
+		respInitial = vitalSign.respiratoryRate;
+		} else if (i > 0){
+		pulseChange = vitalSign.pulseRate - pulseInitial;
+		tempChange = vitalSign.temperature - tempInitial;
+		systolicChange = vitalSign.systolicPressure - systolicInitial;
+		diastolicChange = vitalSign.diastolicPressure - diastolicInitial;
+		respChange = vitalSign.respiratoryRate -respInitial;
+			
+		}
+		
+		i++;	
+	}
+		
+	let span = document.createElement('span');
+		span.style.color = "red";
+		span.textContent = "Alert: *** ";
+		vitalSignData.appendChild(span);
+		
+		span = document.createElement('span');
+		span.textContent = ` Systolic change: ${systolicChange}. `
+		vitalSignData.appendChild(span);
+
+		span = document.createElement('span');
+		span.textContent = ` Diastolic change: ${diastolicChange}. `
+		vitalSignData.appendChild(span);
+
+		span = document.createElement('span');
+		span.textContent = ` Pulse change: ${pulseChange}. `
+		vitalSignData.appendChild(span);
+
+		span = document.createElement('span');
+		span.textContent = ` Temperature change: ${tempChange}. `
+		vitalSignData.appendChild(span);
+
+		span = document.createElement('span');
+		span.textContent = ` Respiration change: ${respChange}. `
+		vitalSignData.appendChild(span);
+	
 }
 
-function deleteRow(no)
-{
- document.getElementById("row"+no+"").outerHTML="";
+function getPatientMedicalHistory(patientId){
+	let xhr = new XMLHttpRequest();
+	console.log('xhr.readyState = ' + xhr.readyState);
+	xhr.open('GET', `api/patients/${patientId}/medicalhistory/`);
+	console.log('xhr.readyState = ' + xhr.readyState);
+	xhr.onreadystatechange = function() {
+		console.log('xhr.readyState = ' + xhr.readyState);
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200) {
+				let medicalHistory = JSON.parse(xhr.responseText);
+				
+				displayPatientMedicalHistory(medicalHistory);
+			}
+			else if (xhr.status === 404){
+				console.error("patient medical history not found");
+				alert("Patient medical history not Found!")
+			}
+		}
+	}
+	console.log('Before send: xhr.readyState = ' + xhr.readyState);
+	xhr.send();
+	console.log('After send: xhr.readyState = ' + xhr.readyState);
+}
+
+function displayPatientMedicalHistory(medicalHistory) {
+	console.log("inside diplayPatient");
+	let medHistoryDataDiv = document.getElementById('pastMedicalHistoryData');
+	
+	let table = document.createElement('table');
+	table.id = "dataTable";
+	medHistoryDataDiv.appendChild(table);
+	
+	let head = document.createElement('thead');
+	table.appendChild(head);
+	
+	let t = document.createElement('th');
+	
+	t.textContent = "Medical History ID";
+	head.appendChild(t);
+		
+	t = document.createElement('th');
+	t.textContent = "Diagnosis";
+	head.appendChild(t);
+	
+	
+	t = document.createElement('th');
+	t.textContent = "Date Verified";
+	head.appendChild(t);
+				
+	let tbody = document.createElement('tbody');
+	table.appendChild(tbody);
+	
+	for(let medHistory of medicalHistory ){
+
+		let tr = document.createElement('tr');
+		let td = document.createElement('td');
+					
+		td.textContent = medHistory.id;
+		tr.appendChild(td);
+
+		td = document.createElement('td');
+		td.textContent = medHistory.diagnosis;
+		tr.appendChild(td);
+
+		td = document.createElement('td');
+		td.textContent = medHistory.dateVerified;
+		tr.appendChild(td);
+		tbody.appendChild(tr);
+
+	}
+
 }
