@@ -14,6 +14,7 @@ export class PatientComponent implements OnInit {
   selected: Patient | null = null;
   // selectedVitals: VitalSign[] | null = null;
   editSelected: Patient | null = null;
+
   newPatient: Patient = new Patient();
   vitalSign: VitalSign | null = null;
   patients: Patient[] = [];
@@ -118,8 +119,8 @@ export class PatientComponent implements OnInit {
     );
     this.reloadPatients();
   }
-  deletePatient(id: number) {
-    this.patientService.destroy(id).subscribe(
+  deletePatient(patient: Patient) {
+    this.patientService.destroy(patient.id).subscribe(
       (success) => {
         this.reloadPatients();
       },

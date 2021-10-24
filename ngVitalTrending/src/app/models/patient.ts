@@ -8,9 +8,9 @@ export class Patient {
   lastName: string;
   dateOfBirth: string;
   imageIdUrl: string;
-  vitalSigns: VitalSign;
-  familyMedicalHistory: FamilyMedicalHistory;
-  medicalHistory: MedicalHistory;
+  vitalSigns: VitalSign | undefined;
+  familyMedicalHistory: FamilyMedicalHistory | undefined;
+  medicalHistory: MedicalHistory | undefined;
 
   constructor(
     id: number = 0,
@@ -18,11 +18,10 @@ export class Patient {
     lastName: string = '',
     dateOfBirth: string = '',
     imageIdUrl: string = '',
-    vitalSigns: VitalSign = new VitalSign(),
-    familyMedicalHistory: FamilyMedicalHistory = new FamilyMedicalHistory(),
-    medicalHistory: MedicalHistory = new MedicalHistory()
+    vitalSigns?: VitalSign,
+    familyMedicalHistory?: FamilyMedicalHistory,
+    medicalHistory?: MedicalHistory
   ) {
-    // patient.vitals;
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
