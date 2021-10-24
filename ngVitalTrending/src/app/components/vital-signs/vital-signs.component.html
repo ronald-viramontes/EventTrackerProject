@@ -1,1 +1,27 @@
-<p>vital-signs works!</p>
+<h1>Vital Signs Page</h1>
+<div id="patientVitals" class="container-fluid">
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Vital Date and Time</th>
+        <th>Systolic Pressure</th>
+        <th>Distolic Pressure</th>
+        <th>Pulse Rate</th>
+        <th>Temperature</th>
+        <th>Respiratory Rate</th>
+      </tr>
+    </thead>
+
+    <tbody *ngFor="let vital of vitalSigns">
+      <tr>
+        <!-- <td (click)="displayTodo(todo)">{{ todo.task }}</td> -->
+        <td>{{ vital.vitalDateTime }}</td>
+        <td>{{ vital.systolicPressure }}</td>
+        <td>{{ vital.diastolicPressure }}</td>
+        <td>{{ vital.pulseRate }}</td>
+        <td>{{ vital.temperature }}</td>
+        <td>{{ vital.respiratoryRate }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

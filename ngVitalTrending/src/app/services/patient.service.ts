@@ -9,10 +9,47 @@ import { catchError } from 'rxjs/operators';
 export class PatientService {
   private baseUrl = 'http://localhost:8086/';
   private url = this.baseUrl + 'api/patients/';
-  constructor(private httpClient: HttpClient) {}
+
+  constructor(private http: HttpClient) {}
 
   index(): Observable<Patient[]> {
-    return this.httpClient.get<Patient[]>(this.url).pipe(
+    return this.http.get<Patient[]>(this.url).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('KABOOM');
+      })
+    );
+  }
+  create(newPatient: Patient) {
+    console.log(newPatient);
+    return this.http.post<Patient>(this.url, newPatient).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('KABOOM');
+      })
+    );
+  }
+
+  update(id: number, patient: Patient) {
+    return this.http.put<Patient>(this.url + id, patient).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('KABOOM');
+      })
+    );
+  }
+
+  destroy(id: number) {
+    return this.http.delete<Patient>(this.url + id).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('KABOOM');
+      })
+    );
+  }
+
+  show(id: number): Observable<Patient> {
+    return this.http.get<Patient>(this.url + id).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('KABOOM');

@@ -1,5 +1,18 @@
-<h1>Patient Page</h1>
-<div id="todoList" class="container-fluid">
+<h1 style="text-align: center">
+  Vital Trending
+  <span
+    class="badge"
+    [ngClass]="
+      getTotalPatients() >= 10
+        ? 'bg-danger'
+        : getTotalPatients() >= 5
+        ? 'bg-warning'
+        : 'bg-success'
+    "
+    >{{ getTotalPatients() }}</span
+  >
+</h1>
+<div *ngIf="!selected" id="patientList" class="container-fluid">
   <table class="table table-striped table-hover">
     <thead class="table-dark">
       <tr>
@@ -7,21 +20,184 @@
         <th>Last Name</th>
         <th>Date of Birth</th>
         <th>Image</th>
+        <th>Remove</th>
       </tr>
     </thead>
 
     <tbody *ngFor="let patient of patients">
       <tr>
         <!-- <td (click)="displayTodo(todo)">{{ todo.task }}</td> -->
-        <td>{{ patient.firstName }}</td>
+        <td (click)="displayPatient(patient)">
+          {{ patient.firstName }}
+        </td>
         <td>{{ patient.lastName }}</td>
         <td>{{ patient.dateOfBirth }}</td>
-        <td><img src="{{ patient.imageIdUrl }}" /></td>
-        <!-- <td>
-          <button class="btn btn-danger" (click)="removeTodo(todo.id)">
+        <td>
+          <img
+            style="height: 150px; width: 100px; border-radius: 8px"
+            src="{{ patient.imageIdUrl }}"
+          />
+        </td>
+        <td>
+          <button class="btn btn-danger" (click)="deletePatient(patient.id)">
             X
-          </button> </td> -->
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
+</div>
+
+<div
+  class="fluid-container"
+  style="
+    text-align: center;
+    border-style: solid;
+    border-radius: 15px;
+    margin: 25px 25px 25px 25px;
+  "
+  *ngIf="selected && !editSelected"
+>
+  <br />
+  <ol>
+    <li>{{ selected.firstName }}</li>
+    <li>{{ selected.lastName }}</li>
+    <li>{{ selected.dateOfBirth }}</li>
+    <li>{{ selected.imageIdUrl }}</li>
+  </ol>
+
+  <span
+    ><b
+      ><img
+        style="height: 250px; width: 200px; border-radius: 8px"
+        src="{{ selected.imageIdUrl }}" /></b
+  ></span>
+  <div>
+    <ol>
+      <li>{{ selected.vitalSigns.id }}</li>
+      <li>{{ selected.vitalSigns.systolicPressure }}</li>
+      <li>{{ selected.vitalSigns.vitalDateTime }}</li>
+      <li>{{ selected.vitalSigns.diastolicPressure }}</li>
+      <li>{{ selected.vitalSigns.pulseRate }}</li>
+      <li>{{ selected.vitalSigns.respiratoryRate }}</li>
+    </ol>
+    <hr />
+    <br />
+  </div>
+
+  <button class="btn btn-warning" (click)="setEditPatient()">Edit</button>
+
+  <button
+    style="margin-left: 20px"
+    class="btn btn-secondary"
+    (click)="displayPatientTable()"
+  >
+    Return
+  </button>
+  <br />
+  <br />
+</div>
+
+<div
+  class="mb-3 container-fluid"
+  style="
+    text-align: center;
+    border-style: solid;
+    border-radius: 15px;
+    margin: 25px 25px 25px 25px;
+  "
+>
+  <br />
+  <form *ngIf="editSelected">
+    <label class="form-label">First Name</label>
+    <input type="text" name="firstName" [(ngModel)]="editSelected.firstName" />
+    <br />
+    <label class="form-label">Last Name</label>
+    <input type="text" name="lastName" [(ngModel)]="editSelected.lastName" />
+    <br />
+    <label class="form-label">Date of Birth</label>
+    <input
+      type="text"
+      name="dateOfBirth"
+      [(ngModel)]="editSelected.dateOfBirth"
+    />
+    <br />
+    <label class="form-label">Image URL</label>
+    <input
+      type="text"
+      name="imageIdUrl"
+      [(ngModel)]="editSelected.imageIdUrl"
+    />
+    <br />
+    <button class="btn btn-warning" (click)="editSelected = null">
+      Cancel
+    </button>
+
+    <button
+      style="margin-left: 20px"
+      class="btn btn-success"
+      (click)="updatePatient(editSelected)"
+    >
+      Save
+    </button>
+    <br />
+    <br />
+  </form>
+</div>
+
+<div
+  *ngIf="!selected"
+  class="mb-3 container-fluid"
+  style="
+    text-align: center;
+    border-style: solid;
+    border-radius: 15px;
+    margin: 25px 25px 25px 25px;
+  "
+>
+  <form name="addPatientForm">
+    <br />
+    <label class="form-label">First Name</label>
+    <input
+      style="margin-left: 20px"
+      type="text"
+      name="firstName"
+      [(ngModel)]="newPatient.firstName"
+    />
+    <br />
+    <label class="form-label">Last Name</label>
+    <input
+      style="margin-left: 20px"
+      type="text"
+      name="lastName"
+      [(ngModel)]="newPatient.lastName"
+    />
+    <br />
+    <label class="form-label">Date of Birth</label>
+    <input
+      style="margin-left: 20px"
+      type="text"
+      name="dateOfBirth"
+      [(ngModel)]="newPatient.dateOfBirth"
+    />
+    <br />
+    <label class="form-label">Image URL</label>
+    <input
+      style="margin-left: 20px"
+      type="text"
+      name="imageIdUrl"
+      [(ngModel)]="newPatient.imageIdUrl"
+    />
+    <br />
+    <br />
+    <button
+      style="margin-left: 20px"
+      class="btn btn-success"
+      (click)="addPatient(newPatient)"
+    >
+      Add Patient
+    </button>
+    <br />
+    <br />
+  </form>
 </div>

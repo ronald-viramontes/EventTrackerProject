@@ -1,4 +1,5 @@
 export class VitalSign {
+  id: number;
   vitalDateTime: string;
   systolicPressure: number;
   diastolicPressure: number;
@@ -7,6 +8,7 @@ export class VitalSign {
   respiratoryRate: number;
 
   constructor(
+    id: number = 0,
     vitalDateTime: string = '',
     systolicPressure: number = 0,
     diastolicPressure: number = 0,
@@ -14,6 +16,7 @@ export class VitalSign {
     temperature: number = 0,
     respiratoryRate: number = 0
   ) {
+    this.id = id;
     this.vitalDateTime = vitalDateTime;
     this.systolicPressure = systolicPressure;
     this.diastolicPressure = diastolicPressure;
