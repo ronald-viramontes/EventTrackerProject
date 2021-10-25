@@ -175,6 +175,10 @@ export class PatientComponent implements OnInit {
       }
     );
   }
+
+  addFormClear(newPatient: Patient) {
+    this.newPatient = new Patient();
+  }
   addPatient(newPatient: Patient) {
     this.patientService.create(newPatient).subscribe(
       (success) => {

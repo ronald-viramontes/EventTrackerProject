@@ -18,26 +18,46 @@
 <div style="background-color: rgb(189, 186, 186)">
   <br />
   <div
+    class="mb-3 container-fluid"
     style="
       text-align: center;
       color: black;
       border-style: solid;
       border-radius: 15px;
-      margin: 0px 400px 0px 400px;
-      background-color: rgb(114, 173, 230);
+      width: 95%;
+      height: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: rgb(21, 22, 22);
     "
   >
-    <br />
-    <h1 style="color: black; text-shadow: 2px 2px 4px black">
-      Welcome to Vital Trending
-    </h1>
-    <div style="text-align: center">
-      <img
-        style="height: 100px; width: 100px"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Caduceus.svg/1200px-Caduceus.svg.png"
-      />
+    <div
+      style="
+        margin: auto;
+        text-align: center;
+        color: black;
+        border-style: solid;
+        border-radius: 15px;
+        width: 98%;
+        height: 85%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+
+        background-color: rgb(114, 173, 230);
+      "
+    >
       <br />
-      <br />
+      <h1 style="color: black; text-shadow: 2px 2px 4px black">
+        Welcome to Vital Trending
+      </h1>
+      <div style="text-align: center">
+        <img
+          style="height: 100px; width: 100px"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Caduceus.svg/1200px-Caduceus.svg.png"
+        />
+        <br />
+        <br />
+      </div>
     </div>
   </div>
   <hr />
@@ -46,6 +66,106 @@
   Total Enrolled Patients
   <span class="badge bg-dark">{{ getTotalPatients() }}</span>
 </h2>
+<hr />
+
+<div
+  *ngIf="!selected"
+  class="mb-3 container-fluid"
+  style="
+    text-align: center;
+    color: black;
+    border-style: solid;
+    border-radius: 15px;
+    width: 74.5%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(21, 22, 22);
+  "
+>
+  <div
+    class="mb-3 container-fluid"
+    style="
+      color: black;
+      border-style: solid;
+      border-radius: 15px;
+      width: 95%;
+      height: 95%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 20px;
+      margin-bottom: auto;
+      background-color: rgb(114, 173, 230);
+    "
+  >
+    <br />
+    <h1
+      style="text-align: center; color: black; text-shadow: 2px 2px 4px black"
+    >
+      Add New Patient
+    </h1>
+    <form name="addPatientForm">
+      <br />
+
+      <label class="form-label"><b>First Name: </b></label>
+      <input
+        style="margin-left: 20px"
+        type="text"
+        name="firstName"
+        [(ngModel)]="newPatient.firstName"
+      />
+      <br />
+
+      <label class="form-label">
+        <b>Last Name: </b>
+      </label>
+      <input
+        style="margin-left: 20px"
+        type="text"
+        name="lastName"
+        [(ngModel)]="newPatient.lastName"
+      />
+
+      <br />
+
+      <label class="form-label">
+        <b>Date of Birth: </b>
+      </label>
+
+      <input
+        style="margin-left: 20px"
+        type="date"
+        name="dateOfBirth"
+        [(ngModel)]="newPatient.dateOfBirth"
+      />
+
+      <br />
+      <label class="form-label">
+        <b>Image URL: </b>
+      </label>
+
+      <input
+        style="margin-left: 20px"
+        type="text"
+        name="imageIdUrl"
+        [(ngModel)]="newPatient.imageIdUrl"
+      />
+      <br />
+
+      <br />
+      <div class="vstack gap-2 col-md-5 mx-auto">
+        <button class="btn btn-dark" (click)="addPatient(newPatient)">
+          Submit
+        </button>
+        <button class="btn btn-outline-dark" (click)="addFormClear(newPatient)">
+          Cancel
+        </button>
+      </div>
+      <br />
+      <br />
+    </form>
+  </div>
+</div>
+
 <div *ngIf="!selected" id="patientList" class="container-fluid">
   <table
     id="mainTable"
@@ -342,7 +462,7 @@
   </form>
 </div>
 
-<div
+<!-- <div
   *ngIf="!selected"
   class="mb-3 container-fluid"
   style="
@@ -420,4 +540,4 @@
     <br />
     <br />
   </form>
-</div>
+</div> -->
