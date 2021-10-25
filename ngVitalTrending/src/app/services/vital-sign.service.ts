@@ -22,7 +22,7 @@ export class VitalSignService {
 
   index(): Observable<VitalSign[]> {
     let pid = this.currentRoute.snapshot.params['id'];
-    return this.http.get<VitalSign[]>(this.url + pid + 'vitalsigns').pipe(
+    return this.http.get<VitalSign[]>(`${this.url}${pid}/vitalsigns/`).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('KABOOM');
@@ -31,19 +31,17 @@ export class VitalSignService {
   }
 
   retrieveVitals(id: number): Observable<VitalSign[]> {
-    return this.http
-      .get<VitalSign[]>(`http://localhost:8086/api/patients/${id}/vitalsigns/`)
-      .pipe(
-        catchError((error: any) => {
-          console.error('Error retrieving patient vital signs');
-          return throwError(error);
-        })
-      );
+    return this.http.get<VitalSign[]>(`${this.url}${id}/vitalsigns/`).pipe(
+      catchError((error: any) => {
+        console.error('Error retrieving patient vital signs');
+        return throwError(error);
+      })
+    );
   }
   create(pid: number, newVitalSign: VitalSign) {
     console.log(newVitalSign);
     return this.http
-      .post<VitalSign>(this.url + '/' + pid + 'vitalsigns', newVitalSign)
+      .post<VitalSign>(`${this.url}vitalsigns/`, newVitalSign)
       .pipe(
         catchError((err: any) => {
           console.log(err);
@@ -52,9 +50,9 @@ export class VitalSignService {
       );
   }
 
-  update(pid: number, updatedVitalSign: VitalSign) {
+  update(pid: number, vsId: number, updatedVitalSign: VitalSign) {
     return this.http
-      .put<VitalSign>(this.url + '/' + pid + 'vitalsigns', updatedVitalSign)
+      .put<VitalSign>(`${this.url}${pid}/vitalsigns/${vsId}`, updatedVitalSign)
       .pipe(
         catchError((err: any) => {
           console.log(err);
@@ -65,7 +63,7 @@ export class VitalSignService {
 
   destroy(pid: number, vsId: number) {
     return this.http
-      .delete<Patient>(this.url + '/' + pid + 'vitalsigns' + '/' + vsId)
+      .delete<Patient>(`${this.url}${pid}/vitalsigns/${vsId}`)
       .pipe(
         catchError((err: any) => {
           console.log(err);
@@ -76,7 +74,7 @@ export class VitalSignService {
 
   show(pid: number, vsId: number): Observable<VitalSign> {
     return this.http
-      .get<VitalSign>(this.url + '/' + pid + 'vitalsigns' + '/' + vsId)
+      .get<VitalSign>(`${this.url}${pid}/vitalsigns/${vsId}`)
       .pipe(
         catchError((err: any) => {
           console.log(err);

@@ -17,9 +17,7 @@ export class FamilyMedicalHistoryService {
 
   patientIndex(id: number): Observable<FamilyMedicalHistory[]> {
     return this.http
-      .get<FamilyMedicalHistory[]>(
-        `http://localhost:8086/api/patients/${id}/familymedicalhistory/`
-      )
+      .get<FamilyMedicalHistory[]>(`${this.url}${id}/familymedicalhistory/`)
       .pipe(
         catchError((error: any) => {
           console.error('Error retrieving patient family medical history');
@@ -30,7 +28,7 @@ export class FamilyMedicalHistoryService {
   create(pid: number, newFMH: FamilyMedicalHistory) {
     return this.http
       .post<FamilyMedicalHistory>(
-        `http://localhost:8086/api/patients/${pid}/familymedicalhistory/`,
+        `${this.url}${pid}/familymedicalhistory/`,
         newFMH
       )
       .pipe(
@@ -44,7 +42,7 @@ export class FamilyMedicalHistoryService {
   update(pid: number, fmhId: number, updatedFMH: FamilyMedicalHistory) {
     return this.http
       .put<FamilyMedicalHistory>(
-        `http://localhost:8086/api/patients/${pid}/familymedicalhistory/${fmhId}`,
+        `${this.url}${pid}/familymedicalhistory/${fmhId}`,
         updatedFMH
       )
       .pipe(
@@ -58,7 +56,7 @@ export class FamilyMedicalHistoryService {
   destroy(pid: number, fmhId: number) {
     return this.http
       .delete<FamilyMedicalHistory>(
-        `http://localhost:8086/api/patients/${pid}/familymedicalhistory/${fmhId}`
+        `${this.url}${pid}/familymedicalhistory/${fmhId}`
       )
       .pipe(
         catchError((err: any) => {
