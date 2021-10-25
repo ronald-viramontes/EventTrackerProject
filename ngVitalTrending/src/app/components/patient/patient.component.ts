@@ -1,7 +1,11 @@
 import { Component, OnInit, Pipe } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FamilyMedicalHistory } from 'src/app/models/family-medical-history';
+import { MedicalHistory } from 'src/app/models/medical-history';
 import { Patient } from 'src/app/models/patient';
 import { VitalSign } from 'src/app/models/vital-sign';
+import { FamilyMedicalHistoryService } from 'src/app/services/family-medical-history.service';
+import { MedicalHistoryService } from 'src/app/services/medical-history.service';
 import { PatientService } from 'src/app/services/patient.service';
 import { VitalSignService } from 'src/app/services/vital-sign.service';
 
@@ -14,21 +18,31 @@ export class PatientComponent implements OnInit {
   selected: Patient | null = null;
   // selectedVitals: VitalSign[] | null = null;
   editSelected: Patient | null = null;
-
+  vitalForm: boolean = false;
+  fmhxForm: boolean = false;
+  mhxForm: boolean = false;
   newPatient: Patient = new Patient();
   vitalSign: VitalSign | null = null;
   patients: Patient[] = [];
   vitalSigns: VitalSign[] = [];
   patient: Patient = new Patient();
+  fmhxs: FamilyMedicalHistory[] = [];
+  fmhx: FamilyMedicalHistory = new FamilyMedicalHistory();
+  mhxs: MedicalHistory[] = [];
+  mhx: MedicalHistory = new MedicalHistory();
+  editPtForm: boolean = false;
 
   constructor(
     private patientService: PatientService,
     private router: Router,
     private currentRoute: ActivatedRoute,
-    private vitalService: VitalSignService
+    private vitalService: VitalSignService,
+    private fmhxService: FamilyMedicalHistoryService,
+    private mhxService: MedicalHistoryService
   ) {}
 
   setEditPatient() {
+    this.editPtForm = true;
     this.editSelected = Object.assign({}, this.selected);
   }
 
@@ -72,22 +86,48 @@ export class PatientComponent implements OnInit {
       vitalArr.push(vitals);
     }
   }
-
-  showPatientVitals(patient: Patient) {
-    console.log(patient.vitalSigns);
-    let vitalArr = [{}];
-    var i = 0;
-
-    for (let vitals in patient.vitalSigns) {
-      vitalArr.push(vitals);
-      console.log(vitalArr[i]);
-      i++;
+  pullPtMedicalHistory(id: number) {
+    if (this.mhxForm) {
+      this.mhxForm = false;
+    } else {
+      this.mhxForm = true;
     }
-    return vitalArr;
+    return this.mhxService.patientIndex(id).subscribe(
+      (data) => {
+        this.mhxs = data;
+        console.log(this.fmhxs);
+      },
+      (fail) => {
+        console.error(fail);
+      }
+    );
   }
 
-  pullPtVitals() {
-    return this.vitalService.index().subscribe(
+  pullPtFamilyMedicalHistory(id: number) {
+    if (this.fmhxForm) {
+      this.fmhxForm = false;
+    } else {
+      this.fmhxForm = true;
+    }
+    return this.fmhxService.patientIndex(id).subscribe(
+      (data) => {
+        this.fmhxs = data;
+        console.log(this.fmhxs);
+      },
+      (fail) => {
+        console.error(fail);
+      }
+    );
+  }
+
+  pullPtVitals(id: number) {
+    if (this.vitalForm) {
+      this.vitalForm = false;
+    } else {
+      this.vitalForm = true;
+    }
+
+    return this.vitalService.retrieveVitals(id).subscribe(
       (data) => {
         this.vitalSigns = data;
         console.log(this.vitalSigns);
@@ -100,6 +140,11 @@ export class PatientComponent implements OnInit {
 
   displayPatientTable() {
     this.reloadPatients();
+    this.fmhxForm = false;
+    this.mhxForm = false;
+    this.vitalForm = false;
+    this.editPtForm = false;
+
     return (this.selected = null);
   }
 

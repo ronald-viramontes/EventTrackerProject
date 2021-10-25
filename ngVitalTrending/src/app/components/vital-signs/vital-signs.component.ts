@@ -21,9 +21,7 @@ export class VitalSignsComponent implements OnInit {
     private vsService: VitalSignService
   ) {}
 
-  ngOnInit(): void {
-    this.reloadPatientVitals();
-  }
+  ngOnInit(): void {}
 
   reloadPatientVitals(): void {
     this.vsService.index().subscribe(
@@ -31,8 +29,22 @@ export class VitalSignsComponent implements OnInit {
         this.vitalSigns = data;
       },
       (err) => {
-        console.error('Error retrieving todo list', err);
+        console.error('Failed to retrieve patient vital signs', err);
         console.error(err);
+      }
+    );
+  }
+
+  displayPatientVitals(id: number) {
+    this.vsService.retrieveVitals(id).subscribe(
+      (success) => {
+        console.log('Patient vitals retrieved');
+        console.log(success);
+        this.vitalSigns = success;
+      },
+      (fail) => {
+        console.error('Failed to retrieve patient vital signs');
+        console.error(fail);
       }
     );
   }

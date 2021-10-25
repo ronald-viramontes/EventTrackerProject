@@ -12,7 +12,7 @@ import { PatientService } from './patient.service';
 })
 export class VitalSignService {
   private baseUrl = 'http://localhost:8086/';
-  private url = this.baseUrl + 'api/patients';
+  private url = this.baseUrl + 'api/patients/';
 
   constructor(
     private http: HttpClient,
@@ -22,12 +22,23 @@ export class VitalSignService {
 
   index(): Observable<VitalSign[]> {
     let pid = this.currentRoute.snapshot.params['id'];
-    return this.http.get<VitalSign[]>(this.url + '/' + pid + 'vitalsigns').pipe(
+    return this.http.get<VitalSign[]>(this.url + pid + 'vitalsigns').pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('KABOOM');
       })
     );
+  }
+
+  retrieveVitals(id: number): Observable<VitalSign[]> {
+    return this.http
+      .get<VitalSign[]>(`http://localhost:8086/api/patients/${id}/vitalsigns/`)
+      .pipe(
+        catchError((error: any) => {
+          console.error('Error retrieving patient vital signs');
+          return throwError(error);
+        })
+      );
   }
   create(pid: number, newVitalSign: VitalSign) {
     console.log(newVitalSign);
